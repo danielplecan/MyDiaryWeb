@@ -1,0 +1,6 @@
+.classpath
+.project
+.settings
+/target/
+/src/main/webapp/META-INF/context.xml
+/nb-configuration.xml
