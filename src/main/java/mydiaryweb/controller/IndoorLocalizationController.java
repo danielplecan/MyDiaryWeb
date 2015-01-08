@@ -21,33 +21,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class IndoorLocalizationController {
+
     @Autowired
     private IndoorLocalizationService indoorLocalizationService;
-    
+
     @RequestMapping(method = RequestMethod.POST, value = "/api/localization/indoor/add-location")
     @ResponseBody
-    public Map<String, Object> addIndoorLocation(@RequestBody @Valid IndoorLocationDTO indoorLocationDTO, 
+    public Map<String, Object> addIndoorLocation(@RequestBody @Valid IndoorLocationDTO indoorLocationDTO,
             BindingResult bindingResult) {
 
         Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("success", true);
+        if (bindingResult.hasErrors()) {
+            responseMap.put("success", false);
+        } else {
+            indoorLocalizationService.addIndoorLocation(indoorLocationDTO);
+            responseMap.put("success", true);
+        }
 
         return responseMap;
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, value = "/api/localization/indoor/add-measures")
     @ResponseBody
-    public Map<String, Object> addMeasures(@RequestBody @Valid Measure measure, 
+    public Map<String, Object> addMeasures(@RequestBody @Valid Measure measure,
             BindingResult bindingResult) {
 
         Map<String, Object> responseMap = new HashMap<>();
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             responseMap.put("success", false);
         } else {
             indoorLocalizationService.addMeasures(measure);
             responseMap.put("success", true);
         }
-        
+
         return responseMap;
     }
 }

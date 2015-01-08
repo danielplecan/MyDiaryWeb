@@ -1,6 +1,9 @@
 package mydiaryweb.dto.localization;
 
+import java.util.ArrayList;
 import java.util.List;
+import mydiaryweb.entity.localization.input.indoor.IndoorLocation;
+import mydiaryweb.entity.localization.input.indoor.Room;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -47,5 +50,20 @@ public class IndoorLocationDTO {
 
     public void setRooms(List<RoomDTO> rooms) {
         this.rooms = rooms;
+    }
+    
+    public IndoorLocation getIndoorLocationFromDTO() {
+        IndoorLocation indoorLocation = new IndoorLocation();
+        
+        List<Room> locationRooms = new ArrayList<>();
+        for(RoomDTO roomDTO : rooms) {
+            locationRooms.add(roomDTO.getRoomFromDTO());
+        }
+        
+        indoorLocation.setLocationName(locationName);
+        indoorLocation.setAddress("ADDRESS: " + latitude + " " + longitude); //Localization code for obtaining an adress from coordinates comes here
+        indoorLocation.setRooms(locationRooms);
+        
+        return indoorLocation;
     }
 }

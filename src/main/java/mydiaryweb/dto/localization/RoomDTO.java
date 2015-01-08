@@ -2,6 +2,7 @@ package mydiaryweb.dto.localization;
 
 import java.util.List;
 import mydiaryweb.entity.localization.input.indoor.CalibrationValue;
+import mydiaryweb.entity.localization.input.indoor.Room;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -28,5 +29,18 @@ public class RoomDTO {
 
     public void setCalibrations(List<List<CalibrationValue>> calibrations) {
         this.calibrations = calibrations;
+    }
+    
+    public Room getRoomFromDTO() {
+        Room room = new Room();
+        
+        room.setRoomName(roomName);
+        
+        for(List<CalibrationValue> calibrationValues : calibrations) {
+            for(CalibrationValue calibrationValue : calibrationValues) {
+                
+            }
+        }
+        return new Room();
     }
 }
