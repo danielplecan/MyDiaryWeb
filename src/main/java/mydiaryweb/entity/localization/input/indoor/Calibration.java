@@ -10,8 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonUnwrapped;
-import org.codehaus.jackson.annotate.JsonValue;
 
 /**
  *
@@ -27,7 +25,6 @@ public class Calibration implements Serializable {
     private Long id;
 
     @OneToMany
-//    @JsonUnwrapped
     private List<CalibrationValue> calibrationValues;
 
     public Long getId() {

@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Measure implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "en_indoor_measures_id_seq", sequenceName = "en_indoor_measures_id_seq", allocationSize = 1)
+    @JsonIgnore
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,7 +35,7 @@ public class Measure implements Serializable {
     private Date timestamp;
     
     @OneToMany
-    private List<CalibrationValue> measureValues;
+    private List<MeasureValue> measures;
 
     public Long getId() {
         return id;
@@ -51,11 +53,11 @@ public class Measure implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public List<CalibrationValue> getMeasureValues() {
-        return measureValues;
+    public List<MeasureValue> getMeasures() {
+        return measures;
     }
 
-    public void setMeasureValues(List<CalibrationValue> measureValues) {
-        this.measureValues = measureValues;
+    public void setMeasures(List<MeasureValue> measureValues) {
+        this.measures = measureValues;
     }
 }

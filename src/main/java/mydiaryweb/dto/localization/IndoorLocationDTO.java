@@ -1,8 +1,6 @@
 package mydiaryweb.dto.localization;
 
 import java.util.List;
-import mydiaryweb.entity.localization.input.indoor.Room;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -17,7 +15,7 @@ public class IndoorLocationDTO {
     
     private double longitude;
     
-    private List<Room> rooms;
+    private List<RoomDTO> rooms;
 
     public String getLocationName() {
         return locationName;
@@ -43,11 +41,11 @@ public class IndoorLocationDTO {
         this.longitude = longitude;
     }
 
-    public List<Room> getRooms() {
+    public List<RoomDTO> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(List<RoomDTO> rooms) {
         this.rooms = rooms;
     }
 }
