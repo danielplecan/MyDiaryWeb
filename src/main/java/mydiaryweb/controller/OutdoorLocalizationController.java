@@ -3,9 +3,9 @@ package mydiaryweb.controller;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.Valid;
-import mydiaryweb.dto.localization.IndoorLocationDTO;
-import mydiaryweb.entity.localization.input.indoor.Measure;
-import mydiaryweb.service.IndoorLocalizationService;
+import mydiaryweb.entity.localization.input.outdoor.RegisteredOutdoorLocation;
+import mydiaryweb.entity.localization.input.outdoor.VisitedOutdoorLocation;
+import mydiaryweb.service.OutdoorLocalizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,37 +19,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author dplecan
  */
 @Controller
-public class IndoorLocalizationController {
-
+public class OutdoorLocalizationController {
     @Autowired
-    private IndoorLocalizationService indoorLocalizationService;
-
-    @RequestMapping(method = RequestMethod.POST, value = "/api/localization/indoor/add-location")
+    private OutdoorLocalizationService outdoorLocalizationService;
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/api/localization/outdoor/register-location")
     @ResponseBody
-    public Map<String, Object> addIndoorLocation(@RequestBody @Valid IndoorLocationDTO indoorLocationDTO,
+    public Map<String, Object> registerOutdoorLocation(@RequestBody @Valid RegisteredOutdoorLocation registeredOutdoorLocation,
             BindingResult bindingResult) {
 
         Map<String, Object> responseMap = new HashMap<>();
         if (bindingResult.hasErrors()) {
             responseMap.put("success", false);
         } else {
-            indoorLocalizationService.addIndoorLocation(indoorLocationDTO);
+            outdoorLocalizationService.registerOutdoorLocation(registeredOutdoorLocation);
             responseMap.put("success", true);
         }
 
         return responseMap;
     }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/api/localization/indoor/add-measures")
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/api/localization/outdoor/add-visited-location")
     @ResponseBody
-    public Map<String, Object> addMeasures(@RequestBody @Valid Measure measure,
+    public Map<String, Object> addVisitedLocation(@RequestBody @Valid VisitedOutdoorLocation visitedOutdoorLocation,
             BindingResult bindingResult) {
 
         Map<String, Object> responseMap = new HashMap<>();
         if (bindingResult.hasErrors()) {
             responseMap.put("success", false);
         } else {
-            indoorLocalizationService.addMeasures(measure);
+            outdoorLocalizationService.addVisitedLocation(visitedOutdoorLocation);
             responseMap.put("success", true);
         }
 

@@ -1,9 +1,6 @@
 package mydiaryweb.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.validation.Valid;
-import mydiaryweb.dto.localization.IndoorLocationDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import mydiaryweb.dto.movement.MoveDTO;

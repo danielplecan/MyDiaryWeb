@@ -32,7 +32,6 @@ public class Room implements Serializable {
     private String roomName;
     
     @OneToMany
-//    @JsonIgnore
     private List<Calibration> calibrations;
 
     public Long getId() {
