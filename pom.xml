@@ -12,6 +12,14 @@
     <name>My Diary - Web</name>
     <description>My Diary - Web POM</description>
 
+    <repositories>
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+    </repositories>
+
     <properties>
         <springframework.version>3.2.6.RELEASE</springframework.version>
         <hibernate.version>3.6.8.Final</hibernate.version>
@@ -22,6 +30,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>simplenlg</groupId>
+            <artifactId>simplenlg</artifactId>
+            <version>4.4.2</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
