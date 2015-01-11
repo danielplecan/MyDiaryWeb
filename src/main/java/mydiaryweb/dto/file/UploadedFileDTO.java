@@ -43,6 +43,4 @@ public class UploadedFileDTO {
     public void setTimestamp(Date timestamp) {
         this.timestamp = new Date(timestamp.getTime());
     }
-    
-    
 }
