@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Lucas
  */
 
+// DEPRECATED
 public class MoveDTO {
     @NotBlank
     private String movementType;

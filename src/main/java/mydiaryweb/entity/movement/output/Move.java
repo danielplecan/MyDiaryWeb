@@ -16,6 +16,7 @@ import javax.persistence.Column;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Move implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "move_id_seq", sequenceName = "move_id_seq", allocationSize = 1)
+    @JsonIgnore
     private Long id;
     
     @Basic(optional = false)
