@@ -6,7 +6,6 @@
 package mydiaryweb.service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import mydiaryweb.dto.movement.MoveDTO;
 import mydiaryweb.entity.movement.output.Move;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
