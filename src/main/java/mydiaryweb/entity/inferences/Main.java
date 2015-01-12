@@ -1,5 +1,7 @@
 package mydiaryweb.entity.inferences;
 
+import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -7,15 +9,20 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "inferences_main")
-public class Main {
+public class Main implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "en_inferences_main_id_seq", sequenceName = "en_inferences_main_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "inferences_main_id_seq", sequenceName = "inferences_main_id_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Action action;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Basic(optional = false)
+    @Column(name = "main_date")
+    private Date date;
 
     public Long getId() {
         return id;
@@ -31,5 +38,13 @@ public class Main {
 
     public void setAction(Action action) {
         this.action = action;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

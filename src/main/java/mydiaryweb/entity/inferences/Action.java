@@ -1,11 +1,13 @@
 package mydiaryweb.entity.inferences;
 
+import java.io.Serializable;
 import mydiaryweb.entity.faces.output.Face;
 import mydiaryweb.entity.localization.output.Location;
 import mydiaryweb.entity.movement.output.Move;
 import mydiaryweb.entity.sound.output.Sound;
 
 import javax.persistence.*;
+import mydiaryweb.entity.behaviour.output.Behaviour;
 
 /**
  * Created by Spac on 10 Ian 2015.
@@ -14,24 +16,33 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "inferences_action")
-public class Action {
+public class Action implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "en_inferences_action_id_seq", sequenceName = "en_inferences_action_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "inferences_action_id_seq", sequenceName = "inferences_action_id_seq", allocationSize = 1)
     private Long id;
+    
+    @Basic(optional = false)
+    @Column(name = "action_name", length = 1000)
+    private String name;
 
-    @OneToOne
+    @ManyToOne
+    @Basic(optional = false)
     private Move movement;
 
-    @OneToOne
+    @ManyToOne
+    @Basic(optional = false)
     private Location location;
 
-    @OneToOne
+    @ManyToOne
     private Face face;
 
-    @OneToOne
+    @ManyToOne
     private Sound sound;
+
+    @OneToOne
+    private Behaviour behaviour;
 
     public Long getId() {
         return id;
@@ -71,5 +82,21 @@ public class Action {
 
     public void setMovement(Move movement) {
         this.movement = movement;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Behaviour getBehaviour() {
+        return behaviour;
+    }
+
+    public void setBehaviour(Behaviour behaviour) {
+        this.behaviour = behaviour;
     }
 }

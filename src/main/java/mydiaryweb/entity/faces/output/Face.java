@@ -2,6 +2,7 @@ package mydiaryweb.entity.faces.output;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by PaulAlbert on 11.01.2015.
@@ -9,7 +10,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "faces")
 public class Face implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +19,11 @@ public class Face implements Serializable {
     @Basic(optional = false)
     @Column(name = "face_name", length = 1000)
     private String faceName;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Basic(optional = false)
+    @Column(name = "face_timestamp")
+    private Date timestamp;
 
     public Long getId() {
         return id;
@@ -36,4 +41,11 @@ public class Face implements Serializable {
         this.faceName = faceName;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 }
