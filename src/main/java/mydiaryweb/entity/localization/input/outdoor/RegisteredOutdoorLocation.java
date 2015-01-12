@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -15,9 +17,14 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  *
  * @author dplecan
  */
+@NamedQueries({
+    @NamedQuery(name = RegisteredOutdoorLocation.FIND_ALL, query = "SELECT u from RegisteredOutdoorLocation u"),
+})
 @Entity
 @Table(name = "registered_outdoor_locations")
 public class RegisteredOutdoorLocation implements Serializable {
+    public static final String FIND_ALL = "RegisteredOutdoorLocation.findAll";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "en_registered_outdoor_locations_id_seq", sequenceName = "en_registered_outdoor_locations_id_seq", allocationSize = 1)
