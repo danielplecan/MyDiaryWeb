@@ -1,11 +1,16 @@
 package mydiaryweb.service;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.ParameterExpression;
+import mydiaryweb.entity.localization.input.outdoor.Device;
 import mydiaryweb.entity.localization.input.outdoor.RegisteredOutdoorLocation;
+import mydiaryweb.entity.localization.input.outdoor.ScannedDevice;
 import mydiaryweb.entity.localization.input.outdoor.VisitedOutdoorLocation;
 import mydiaryweb.entity.localization.output.Location;
 import mydiaryweb.module.localization.outdoor.OutdoorLocalization;
@@ -33,6 +38,16 @@ public class OutdoorLocalizationService {
     }
     
     @Transactional
+    public void registerDevice(Device device) {
+        entityManager.persist(device);
+    }
+    
+    @Transactional
+    public void addScannedDevice(ScannedDevice scannedDevice) {
+        entityManager.persist(scannedDevice);
+    }
+    
+    @Transactional
     public List<RegisteredOutdoorLocation> getAllRegisteredLocations() {
         TypedQuery<RegisteredOutdoorLocation> registeredLocationsQuery = entityManager.createNamedQuery(RegisteredOutdoorLocation.FIND_ALL, 
                 RegisteredOutdoorLocation.class);
@@ -46,6 +61,19 @@ public class OutdoorLocalizationService {
                 VisitedOutdoorLocation.class);
         
         return visitedLocationsQuery.getResultList();
+    }
+    
+    @Transactional List<Device> getAllRegisteredDevices() {
+        TypedQuery<Device> registeredDevicesQuery = entityManager.createNamedQuery(Device.FIND_ALL, Device.class);
+        
+        return registeredDevicesQuery.getResultList();
+    }
+    
+    @Transactional List<ScannedDevice> getScannedDevicesByTimestamp(Date checkTimeStamp) {
+        
+        TypedQuery<ScannedDevice> scannedDevicesByTimestamp = entityManager.createNamedQuery(ScannedDevice.FIND_BY_TIMESTAMP, ScannedDevice.class);
+        scannedDevicesByTimestamp.setParameter("timeStamp", checkTimeStamp);
+        return scannedDevicesByTimestamp.getResultList();
     }
     
     @Transactional
