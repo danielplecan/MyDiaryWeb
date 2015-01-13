@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.ParameterExpression;
 import mydiaryweb.entity.localization.input.outdoor.Device;
 import mydiaryweb.entity.localization.input.outdoor.RegisteredOutdoorLocation;
 import mydiaryweb.entity.localization.input.outdoor.ScannedDevice;
@@ -63,13 +61,15 @@ public class OutdoorLocalizationService {
         return visitedLocationsQuery.getResultList();
     }
     
-    @Transactional List<Device> getAllRegisteredDevices() {
+    @Transactional 
+    public List<Device> getAllRegisteredDevices() {
         TypedQuery<Device> registeredDevicesQuery = entityManager.createNamedQuery(Device.FIND_ALL, Device.class);
         
         return registeredDevicesQuery.getResultList();
     }
     
-    @Transactional List<ScannedDevice> getScannedDevicesByTimestamp(Date checkTimeStamp) {
+    @Transactional 
+    public List<ScannedDevice> getScannedDevicesByTimestamp(Date checkTimeStamp) {
         
         TypedQuery<ScannedDevice> scannedDevicesByTimestamp = entityManager.createNamedQuery(ScannedDevice.FIND_BY_TIMESTAMP, ScannedDevice.class);
         scannedDevicesByTimestamp.setParameter("timeStamp", checkTimeStamp);
