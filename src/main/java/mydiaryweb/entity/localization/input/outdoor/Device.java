@@ -24,14 +24,14 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = Device.FIND_ALL, query = "SELECT d from Device d"),
 })
 @Entity
-@Table(name = "indoor_device")
+@Table(name = "outdoor_device")
 public class Device implements Serializable {
     
     public static final String FIND_ALL = "ScannedDevice.findAll";
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "en_indoor_device_id_seq", sequenceName = "en_indoor_device_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "outdoor_device_id_seq", sequenceName = "outdoor_device_id_seq", allocationSize = 1)
     @JsonIgnore
     private Long id;
 

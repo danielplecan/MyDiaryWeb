@@ -2,7 +2,6 @@ package mydiaryweb.entity.localization.input.outdoor;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,7 +26,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 })
 
 @Entity
-@Table(name = "indoor_scanned_device")
+@Table(name = "outdoor_scanned_device")
 public class ScannedDevice implements Serializable {
     
     public static final String FIND_BY_TIMESTAMP = "ScannedDevice.findByTimestamp";
@@ -71,5 +69,4 @@ public class ScannedDevice implements Serializable {
     public void setTimeStamp(Date timeStamp){
         this.timeStamp = timeStamp;
     }
-    
 }

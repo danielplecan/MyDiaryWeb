@@ -70,7 +70,6 @@ public class OutdoorLocalizationService {
     
     @Transactional 
     public List<ScannedDevice> getScannedDevicesByTimestamp(Date checkTimeStamp) {
-        
         TypedQuery<ScannedDevice> scannedDevicesByTimestamp = entityManager.createNamedQuery(ScannedDevice.FIND_BY_TIMESTAMP, ScannedDevice.class);
         scannedDevicesByTimestamp.setParameter("timeStamp", checkTimeStamp);
         return scannedDevicesByTimestamp.getResultList();
@@ -82,12 +81,11 @@ public class OutdoorLocalizationService {
         for(Location location : locations) {
             entityManager.persist(location);
         }
+        deleteAllVisitedLocations();
     }
     
     public void launchDeviceVerification(Date timeStamp){
-        
         OutdoorLocalization.verifyDevice(getAllRegisteredDevices(),getScannedDevicesByTimestamp(timeStamp));
-        
     }
     
     @Transactional

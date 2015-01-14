@@ -40,11 +40,11 @@ public class TextGenerationController {
     }
 
     public ArrayList<String> generateText() {
-        ArrayList<String> finalText = new ArrayList<String>();
+        ArrayList<String> finalText = new ArrayList<>();
         String rooms = "Kitchen,Bedroom,Bathroom,Garage,Hall";
         String prepositions = "After that,After <n>,<n> later";
         Random rand = new Random();
-        String currentTime = null, previousTime = null;
+        String previousTime = null;
 
         ArrayList<Main> mainTable = new ArrayList<>();
 
