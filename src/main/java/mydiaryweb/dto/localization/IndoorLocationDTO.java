@@ -1,10 +1,12 @@
 package mydiaryweb.dto.localization;
 
-import java.util.ArrayList;
-import java.util.List;
 import mydiaryweb.entity.localization.input.indoor.IndoorLocation;
 import mydiaryweb.entity.localization.input.indoor.Room;
+import mydiaryweb.module.localization.outdoor.OutdoorLocalization;
 import org.hibernate.validator.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -61,7 +63,7 @@ public class IndoorLocationDTO {
         }
         
         indoorLocation.setLocationName(locationName);
-        indoorLocation.setAddress("ADDRESS: " + latitude + " " + longitude); //Localization code for obtaining an adress from coordinates comes here
+        indoorLocation.setAddress(OutdoorLocalization.reverseGeocoding(latitude, longitude)); //Localization code for obtaining an adress from coordinates comes here
         indoorLocation.setRooms(locationRooms);
         
         return indoorLocation;
