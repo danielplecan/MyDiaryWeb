@@ -1,0 +1,24 @@
+.container{
+	width: 100%;
+	padding-top: 50px;
+	}
+	
+.col-sm-3{
+	width: 20%;
+	}
+	
+.col-sm-9{
+	width: 80%;
+	}
+
+.jumbotron{
+	float: center;
+	}
+	
+.jumbotron p{
+	font-size: 14px;
+	}
+	
+#textArea{
+	height: 250px;
+	}
