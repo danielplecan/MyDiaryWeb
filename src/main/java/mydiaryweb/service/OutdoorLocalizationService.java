@@ -82,6 +82,11 @@ public class OutdoorLocalizationService {
         for(Location location : locations) {
             entityManager.persist(location);
         }
+    }
+    
+    public void launchDeviceVerification(Date timeStamp){
+        
+        OutdoorLocalization.verifyDevice(getAllRegisteredDevices(),getScannedDevicesByTimestamp(timeStamp));
         
     }
     

@@ -8,13 +8,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.ws.ProtocolException;
+import mydiaryweb.entity.localization.input.outdoor.Device;
 import mydiaryweb.entity.localization.input.outdoor.RegisteredOutdoorLocation;
+import mydiaryweb.entity.localization.input.outdoor.ScannedDevice;
 import mydiaryweb.entity.localization.input.outdoor.VisitedOutdoorLocation;
 import mydiaryweb.entity.localization.output.Location;
 import org.json.JSONArray;
@@ -150,4 +153,18 @@ public class OutdoorLocalization {
     public static List<Location> locate(List<RegisteredOutdoorLocation> registeredLocations, List<VisitedOutdoorLocation> visitedLocations) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public static boolean verifyDevice(List<Device> deviceList, List<ScannedDevice> scannedDeviceList){
+        
+        for(int i=0; i<deviceList.size(); i++){
+            for (int j=0; j<scannedDeviceList.size(); j++){
+                if(deviceList.get(i).getMac().equals(scannedDeviceList.get(j).getMacDevice())){
+                return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    
 }
