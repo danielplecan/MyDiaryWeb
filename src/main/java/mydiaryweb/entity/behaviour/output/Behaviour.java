@@ -37,7 +37,13 @@ public class Behaviour implements Serializable {
     @Basic(optional = false)
     @Column(name = "flag")
     private boolean flag = false;
+    
 
+    public Behaviour(Date nextTime, int counter, boolean flag) {
+        this.nextTime = new Date(nextTime.getTime());
+        this.counter = counter;
+        this.flag = flag;
+    }
     public Long getId() {
         return id;
     }
