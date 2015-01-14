@@ -9,25 +9,23 @@ public class ActionsInput implements Comparable<ActionsInput> {
 
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
+        private Long actionId;
 	// user for what I calculate the behavior
 	private String action;
 	private String location;
 	// who participate to this action; ex: Alex
 	private String withWho;
 	private Date date;
-	private Behaviour behavior;
+	private Behaviour behavior=null;
 
-	public ActionsInput(String action, String location, String withWho, Date date) {
+	public ActionsInput(String action, String location, String withWho, Date date, Behaviour behaviour, Long actionId) {
 		super();
 		this.action = action;
 		this.location = location;
 		this.withWho = withWho;
 		this.date = date;
-		checkAction();
-	}
-
-	private void checkAction() {
-
+                this.behavior = behaviour;
+                this.actionId = actionId;
 	}
 
 	public String getAction() {
@@ -70,6 +68,14 @@ public class ActionsInput implements Comparable<ActionsInput> {
 		this.behavior = behavior;
 	}
 
+        public Long getActionId() {
+		return actionId;
+	}
+
+	public void setActionId(Long actionId) {
+		this.actionId = actionId;
+	}
+        
 	@Override
 	public String toString() {
 		return "Action [action=" + action

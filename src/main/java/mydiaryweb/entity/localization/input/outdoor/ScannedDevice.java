@@ -33,7 +33,7 @@ public class ScannedDevice implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "en_indoor_scanned_device_id_seq", sequenceName = "en_indoor_scanned_device_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "outdoor_scanned_device_id_seq", sequenceName = "outdoor_scanned_device_id_seq", allocationSize = 1)
     @JsonIgnore
     private Long id;
 

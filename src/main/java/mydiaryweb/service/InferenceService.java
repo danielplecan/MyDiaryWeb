@@ -22,10 +22,12 @@ public class InferenceService {
     public List<Main> getCurrentDayActivities() {
         List<Main> activities = new ArrayList<>();
         
-        Date currentDate = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        
+//        Date currentDate = new Date();
+//        Calendar calendar = Calendar.getInstance();
+//        Date currentDate = new Date
+////        calendar.set
+////        calendar.setTime(currentDate);
+//        
         return activities;
     }
     

@@ -1,7 +1,6 @@
 package mydiaryweb.entity.localization.input.outdoor;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,5 +65,4 @@ public class Device implements Serializable {
     public void setMac(String mac){
         this.mac = mac;
     }
-    
 }
