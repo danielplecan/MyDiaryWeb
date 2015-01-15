@@ -31,14 +31,9 @@ public class RecurringBehaviour implements Serializable {
     @ManyToOne
     private Action action;
     
-    @Temporal(TemporalType.TIMESTAMP)
     @Basic(optional = false)
-    @Column(name = "behaviour_day")
-    private Date day;
-    
-    @Basic(optional = false)
-    @Column(name = "type", length = 1000)
-    private String type;
+    @Column(name = "behaviour_day", length = 1000)
+    private String day;
     
     @Basic(optional = false)
     @Column(name = "person_name", length = 1000)
@@ -76,20 +71,12 @@ public class RecurringBehaviour implements Serializable {
         this.action = action;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(String day) {
         this.day = day;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getPersonName() {

@@ -8,14 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@NamedQueries({
+    @NamedQuery(name = Location.FIND_BY_DATE, query = "SELECT l FROM Location l WHERE l.timestamp >= :beginning AND l.timestamp <= :end"),
+})
 @Entity
 @Table(name = "locations")
 public class Location implements Serializable{
+    public static final String FIND_BY_DATE = "Location.findByDate";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

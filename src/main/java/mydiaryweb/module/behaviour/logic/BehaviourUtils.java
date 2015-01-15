@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import mydiaryweb.entity.behaviour.output.Behaviour;
+import mydiaryweb.entity.behaviour.output.RecurringBehaviour;
 import mydiaryweb.entity.inferences.Action;
 import mydiaryweb.entity.inferences.Main;
 import mydiaryweb.module.behaviour.persistence.ActionsInput;
@@ -19,15 +20,12 @@ import mydiaryweb.service.InferenceService;
 import org.apache.commons.lang.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class Utils {
-    @Autowired
+public class BehaviourUtils {
     private static InferenceService inferenceService;
-    
-    @Autowired
+
     private static BehaviourService behaviourService;
-    
+
     public final static String HABIT = "habit";
     public final static String GENERALLY_DONE = "generally done";
     public final static String WEAK_PATTERN = "weak pattern";
@@ -58,17 +56,17 @@ public class Utils {
         return result - 1;
     }
 
-    public static ArrayList<FinalOutput> applyAlgorithm(
+    public static List<FinalOutput> applyAlgorithm(
             ArrayList<InputObject> input, Date createdDate,
-            ArrayList<OutputDayObject> output, ArrayList<String> friends) {
+            ArrayList<OutputDayObject> output, List<String> friends) {
 
         processInput(input, output);
         return processOutput(createdDate, output, friends);
     }
 
-    private static ArrayList<FinalOutput> processOutput(Date createdDate,
-            ArrayList<OutputDayObject> output, ArrayList<String> friends) {
-        ArrayList<FinalOutput> result = new ArrayList<FinalOutput>();
+    private static List<FinalOutput> processOutput(Date createdDate,
+            ArrayList<OutputDayObject> output, List<String> friends) {
+        List<FinalOutput> result = new ArrayList<FinalOutput>();
         long days = countDays(createdDate);
         Map<String, ArrayList<OutputDayObject>> map = new HashMap<String, ArrayList<OutputDayObject>>();
         for (OutputDayObject obj : output) {
@@ -94,7 +92,7 @@ public class Utils {
 
     private static FinalOutput buildFinalOutput(
             ArrayList<OutputDayObject> output, long days, String day,
-            ArrayList<String> friends) {
+            List<String> friends) {
         FinalOutput result = new FinalOutput();
         result.setActionID(output.get(0).getActionID());
         result.setDay(day);
@@ -158,7 +156,7 @@ public class Utils {
 
     private static void setWhoPercent(FinalOutput finalOutput,
             ArrayList<OutputDayObject> output, long days,
-            ArrayList<String> friends) {
+            List<String> friends) {
         int[] totals = new int[friends.size()];
         for (String friend : friends) {
             for (OutputDayObject outputDayObject : output) {
@@ -335,7 +333,7 @@ public class Utils {
         }
     }
 
-    public static void getInfoForBehavior(List<Main> objects) {
+    public static void processBehaviour(List<Main> objects) {
 
         ArrayList<InputObject> inputObject = new ArrayList<>();
         for (Main object : objects) {
@@ -353,8 +351,35 @@ public class Utils {
             if (action.getSound() != null) {
                 personName = action.getSound().getSoundName();
             }
-           inputObject.add(new InputObject(actionID, locationName, personName, date));
+            inputObject.add(new InputObject(actionID, locationName, personName, date));
             createPatternsBehaviour(inferenceService.getActivitiesByActionName(actionName));
         }
+
+        ArrayList<OutputDayObject> output = new ArrayList<>();
+        ArrayList<String> friends = new ArrayList<>(); //TODO un query la BD care ia toate persoanele  de la Faces and Sounds si umple lista asta
+        List<FinalOutput> finalOutputs = applyAlgorithm(inputObject, new Date(), output, friends);
+        for(FinalOutput finalOutput: finalOutputs){
+            //TODO ii trebuie o metoda care dupa actionId sa returneze obiectul Action
+            Action a = inferenceService.getActionById(Long.parseLong(finalOutput.getActionID()));
+            //in Obiectul ala RecurringBehavior campul day sa-l faci String nu Date
+            RecurringBehaviour recurringBehavior = new RecurringBehaviour();
+            recurringBehavior.setAction(a);//aici pui obiectul a returnat mai sus intr-o linie comentata
+            recurringBehavior.setDay(finalOutput.getDay());
+            recurringBehavior.setHowRecurringByDay(finalOutput.getHowRecurringByDay());
+            recurringBehavior.setHowRecurringByLocation(finalOutput.getHowRecurringByLocation());
+            recurringBehavior.setHowRecurringByPerson(finalOutput.getHowRecurringByPerson());
+            recurringBehavior.setLocationName(finalOutput.getLocationID());
+            recurringBehavior.setPersonName(finalOutput.getFacesID());
+            //sterge din RecurringBehavior campul 'type' ca nu imi trebuie
+            
+            //TODO o metoda care persista obiectul recurringBehavior
+            behaviourService.addRecurringBehaviour(recurringBehavior);
+        }
+    }
+    
+    public static void setServices(InferenceService newInferenceService, 
+            BehaviourService newBehaviourService) {
+        inferenceService = newInferenceService;
+        behaviourService = newBehaviourService;
     }
 }

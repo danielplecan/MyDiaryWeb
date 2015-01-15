@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mydiaryweb.entity.movement.output;
 
 import java.io.Serializable;
@@ -13,7 +8,10 @@ import javax.persistence.Id;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -22,9 +20,14 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  *
  * @author Lucas
  */
+@NamedQueries({
+    @NamedQuery(name = Move.FIND_BY_DATE, query = "SELECT m FROM Move m WHERE m.startMoment >= :beginning AND m.startMoment <= :end"),
+})
 @Entity
+@Table(name = "moves")
 public class Move implements Serializable {
-    private static final long serialVersionUID = 1L;
+    public static final String FIND_BY_DATE = "Move.findByDate";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "move_id_seq", sequenceName = "move_id_seq", allocationSize = 1)
