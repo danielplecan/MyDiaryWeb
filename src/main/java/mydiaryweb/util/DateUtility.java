@@ -14,7 +14,7 @@ public class DateUtility {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
-        return new Date(day, month, year);
+        return new Date(year, month, day);
     }
     
     public static Date getEndOfDay(Date targetDate) {
@@ -23,6 +23,6 @@ public class DateUtility {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
-        return new Date(day, month, year, 23, 59, 59);
+        return new Date(year, month, day, 23, 59, 59);
     }
 }
