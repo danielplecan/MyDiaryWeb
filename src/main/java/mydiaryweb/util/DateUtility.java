@@ -11,20 +11,20 @@ public class DateUtility {
     public static Date getBeginningOfDay(Date targetDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(targetDate);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        calendar.set(year, month, day, 0, 0, 0);
         return calendar.getTime();
     }
     
     public static Date getEndOfDay(Date targetDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(targetDate);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        calendar.set(year, month, day, 23, 59, 59);
         return calendar.getTime();
     }
 }

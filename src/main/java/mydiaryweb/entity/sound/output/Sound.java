@@ -7,9 +7,13 @@ import java.util.Date;
 /**
  * Created by PaulAlbert on 11.01.2015.
  */
+@NamedQueries({
+    @NamedQuery(name = Sound.FIND_BY_DATE, query = "SELECT s FROM Sound s WHERE s.timestamp >= :beginning AND s.timestamp <= :end"),
+})
 @Entity
 @Table(name = "sounds")
 public class Sound implements Serializable {
+    public static final String FIND_BY_DATE = "Sound.findByDate";
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

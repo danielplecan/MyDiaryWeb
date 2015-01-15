@@ -9,12 +9,10 @@ public class DefaultAction {
 	public String mov;
 	
 public DefaultAction(String actionName, String loc, String sv, String face, String mov) {
-		
 		this.actionName = actionName;
 		this.loc = loc;
 		this.sv = sv;
 		this.face = face;
 		this.mov = mov;
-		
 	}
 }

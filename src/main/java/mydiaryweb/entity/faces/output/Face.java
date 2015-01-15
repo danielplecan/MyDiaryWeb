@@ -7,10 +7,14 @@ import java.util.Date;
 /**
  * Created by PaulAlbert on 11.01.2015.
  */
+@NamedQueries({
+    @NamedQuery(name = Face.FIND_BY_DATE, query = "SELECT f FROM Face f WHERE f.timestamp >= :beginning AND f.timestamp <= :end"),
+})
 @Entity
 @Table(name = "faces")
 public class Face implements Serializable {
-
+    public static final String FIND_BY_DATE = "Face.findByDate";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "face_id_seq", sequenceName = "face_id_seq", allocationSize = 1)

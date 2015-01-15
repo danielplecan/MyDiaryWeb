@@ -1,6 +1,5 @@
 package mydiaryweb.controller;
 
-import mydiaryweb.entity.movement.output.Move;
 import mydiaryweb.service.BehaviourService;
 import mydiaryweb.service.InferenceService;
 import mydiaryweb.service.MovementService;
@@ -11,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import mydiaryweb.module.behaviour.logic.BehaviourUtils;
+import mydiaryweb.module.inferences.InferencesHandler;
+import mydiaryweb.service.FaceService;
+import mydiaryweb.service.SoundService;
 
 /**
  *
@@ -33,24 +35,28 @@ public class ProcessingController {
     @Autowired
     private MovementService movementService;
     
+    @Autowired
+    private FaceService faceService;
+    
+    @Autowired
+    private SoundService soundService;
+    
     @RequestMapping(method = RequestMethod.GET, value = "/api/start-processing")
     @ResponseBody
     public Map<String, Object> startProcessing() {
         Map<String, Object> responseMap = new HashMap<>();
         
-        /*outdoorLocalizationService.launchProcessing();
+        outdoorLocalizationService.launchProcessing();
+        
+        InferencesHandler.setService(inferenceService);
+        InferencesHandler.StartInferencing(outdoorLocalizationService.getCurrentDayLocations(), 
+                movementService.getCurrentDayMoves(), 
+                faceService.getCurrentDayFaces(), 
+                soundService.getCurrentDaySounds(), 
+                120);
         
         BehaviourUtils.setServices(inferenceService, behaviourService);
         BehaviourUtils.processBehaviour(inferenceService.getCurrentDayActivities());
-        
-        responseMap.put("success", true);*/
-        Move s = new Move();
-        s.setMovementType("in_vehicle");
-        s.setStartMoment(new Date());
-        movementService.addMove(s);
-
-        movementService.getCurrentDayMoves();
-
         
         return responseMap;
     }

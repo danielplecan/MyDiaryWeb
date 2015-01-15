@@ -13,6 +13,7 @@ import mydiaryweb.entity.localization.input.outdoor.VisitedOutdoorLocation;
 import mydiaryweb.entity.localization.output.Location;
 import mydiaryweb.module.localization.outdoor.OutdoorLocalization;
 import org.springframework.stereotype.Service;
+import mydiaryweb.util.DateUtility;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -92,5 +93,17 @@ public class OutdoorLocalizationService {
     public void deleteAllVisitedLocations() {
         Query visitedLocationsQuery = entityManager.createNamedQuery(VisitedOutdoorLocation.DELETE_ALL);
         visitedLocationsQuery.executeUpdate();
+    }
+    
+    public List<Location> getCurrentDayLocations() {
+        Date currentDate = new Date();
+        Date beginning = DateUtility.getBeginningOfDay(currentDate);
+        Date end = DateUtility.getEndOfDay(currentDate);
+        TypedQuery<Location> locationsByDate = entityManager.createNamedQuery(Location.FIND_BY_DATE, 
+                Location.class);
+        locationsByDate.setParameter("beginning", beginning);
+        locationsByDate.setParameter("end", end);
+        
+        return locationsByDate.getResultList();
     }
 }

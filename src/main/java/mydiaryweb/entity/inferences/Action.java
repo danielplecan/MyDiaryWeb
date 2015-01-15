@@ -14,10 +14,16 @@ import mydiaryweb.entity.behaviour.output.Behaviour;
  *
  * action : id movement location face voice behaviour
  */
+@NamedQueries({
+    @NamedQuery(name = Action.FIND, 
+            query = "SELECT a FROM Action a WHERE a.location.proximity = :proximity "
+                    + "AND a.movement.movementType = :movement_type")
+})
+
 @Entity
 @Table(name = "inferences_action")
 public class Action implements Serializable {
-
+    public static final String FIND = "Action.find";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "inferences_action_id_seq", sequenceName = "inferences_action_id_seq", allocationSize = 1)

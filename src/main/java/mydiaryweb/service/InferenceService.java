@@ -6,8 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import mydiaryweb.entity.behaviour.output.Behaviour;
+import mydiaryweb.entity.faces.output.Face;
 import mydiaryweb.entity.inferences.Action;
 import mydiaryweb.entity.inferences.Main;
+import mydiaryweb.entity.localization.output.Location;
+import mydiaryweb.entity.movement.output.Move;
+import mydiaryweb.entity.sound.output.Sound;
 import mydiaryweb.util.DateUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,5 +52,33 @@ public class InferenceService {
         action.setBehaviour(newBehaviour);
         entityManager.merge(newBehaviour);
         entityManager.merge(action);
+    }
+    
+    @Transactional
+    public void addMain(Action action, Date moment) {
+        Main main = new Main();
+        main.setAction(action);
+        main.setDate(moment);
+        
+        entityManager.persist(main);
+    }
+
+    public Action getAction(Location loc, Move move, Sound sound, Face face) {
+        TypedQuery<Action> activities = entityManager.createNamedQuery(Action.FIND, Action.class);
+        activities.setParameter("proximity", loc.getProximity());
+        activities.setParameter("movement_type", move.getMovementType());
+        return activities.getSingleResult();
+    }
+
+    public Action addAction(Location loc, Move move, Sound sound, Face face, String name) {
+        Action action = new Action();
+        action.setFace(face);
+        action.setSound(sound);
+        action.setMovement(move);
+        action.setLocation(loc);
+        action.setName(name);
+        entityManager.persist(action);
+        
+        return action;
     }
 }
