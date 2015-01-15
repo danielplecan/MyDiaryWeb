@@ -1,17 +1,10 @@
 package mydiaryweb.entity.localization.input.indoor;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -33,6 +26,28 @@ public class Room implements Serializable {
     
     @OneToMany
     private List<Calibration> calibrations;
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public String getLocationAddress() {
+        return locationAddress;
+    }
+
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
+    }
+
+    private String locationName;
+    private String locationAddress;
+
+
+
 
     public Long getId() {
         return id;

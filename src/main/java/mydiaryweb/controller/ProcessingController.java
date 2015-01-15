@@ -1,17 +1,19 @@
 package mydiaryweb.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import mydiaryweb.module.behaviour.logic.BehaviourUtils;
-import mydiaryweb.module.mdqa.model.Inference;
+import mydiaryweb.entity.movement.output.Move;
 import mydiaryweb.service.BehaviourService;
 import mydiaryweb.service.InferenceService;
+import mydiaryweb.service.MovementService;
 import mydiaryweb.service.OutdoorLocalizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -27,18 +29,28 @@ public class ProcessingController {
     
     @Autowired
     private BehaviourService behaviourService;
+
+    @Autowired
+    private MovementService movementService;
     
     @RequestMapping(method = RequestMethod.GET, value = "/api/start-processing")
     @ResponseBody
     public Map<String, Object> startProcessing() {
         Map<String, Object> responseMap = new HashMap<>();
         
-        outdoorLocalizationService.launchProcessing();
+        /*outdoorLocalizationService.launchProcessing();
         
         BehaviourUtils.setServices(inferenceService, behaviourService);
         BehaviourUtils.processBehaviour(inferenceService.getCurrentDayActivities());
         
-        responseMap.put("success", true);
+        responseMap.put("success", true);*/
+        Move s = new Move();
+        s.setMovementType("in_vehicle");
+        s.setStartMoment(new Date());
+        movementService.addMove(s);
+
+        movementService.getCurrentDayMoves();
+
         
         return responseMap;
     }

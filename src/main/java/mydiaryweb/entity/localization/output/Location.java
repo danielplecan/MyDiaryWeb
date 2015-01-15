@@ -1,19 +1,8 @@
 package mydiaryweb.entity.localization.output;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.*;
 
 @NamedQueries({
     @NamedQuery(name = Location.FIND_BY_DATE, query = "SELECT l FROM Location l WHERE l.timestamp >= :beginning AND l.timestamp <= :end"),
@@ -107,5 +96,40 @@ public class Location implements Serializable{
 
     public void setVehicleName(String vehicleName) {
         this.vehicleName = vehicleName;
+    }
+
+    public static List<Location> mergeIndoorWithOudoor(
+            List<Location> indoorList,
+            List<Location> outdoorList
+    ) {
+        List<Location> filteredOutdoorList = new ArrayList<>();
+
+        for (Location indoor : indoorList) {
+            for (Location outdoor : outdoorList) {
+                if(Math.abs(
+                        indoor.getTimestamp().getTime()
+                                - outdoor.getTimestamp().getTime())
+                        > 5 * 1000) {
+                    filteredOutdoorList.add(outdoor);
+                }
+            }
+        }
+
+        List<Location> finalList = new ArrayList<>();
+        finalList.addAll(indoorList);
+        finalList.addAll(filteredOutdoorList);
+        Collections.sort(finalList, new Comparator<Location>() {
+
+            @Override
+            public int compare(Location o1, Location o2) {
+                if (o1.getTimestamp().getTime() > o2.getTimestamp().getTime())
+                    return 1;
+                else if (o1.getTimestamp().getTime() < o2.getTimestamp().getTime())
+                    return -1;
+                return 0;
+            }
+
+        });
+        return finalList;
     }
 }
