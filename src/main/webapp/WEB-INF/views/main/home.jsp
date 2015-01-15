@@ -10,6 +10,7 @@
         <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/bootswatch.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/responsive-calendar.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/myDiary.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $(".responsive-calendar").responsiveCalendar({
@@ -105,7 +106,7 @@
 
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#journal" data-toggle="tab" aria-expanded="true">Journal</a></li>
-                            <li class=""><a href="#talk" data-toggle="tab" aria-expanded="false">Talk</a></li>
+                            <li class=""><a onclick="getQuestion()" href="#talk" data-toggle="tab" aria-expanded="false">Talk</a></li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                                     Dropdown <span class="caret"></span>
@@ -119,14 +120,23 @@
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="journal">
+                                <button onclick="getJournal()" id="callJournal" class="btn btn-primary">Get Journal</button>
+                                <br/><br/>
                                 <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
                             </div>
                             <div class="tab-pane fade" id="talk">
 
                                 <div class="question">
                                     <div class="form-group">
-                                        <input class="form-control" id="focusedInput" type="text" value="This is focused...">
-                                    </div>
+                                        <div class="row">
+                                            
+                                        <div class="col-sm-11">
+                                        <input class="form-control" id="focusedInput" type="text" placeholder="Response">
+                                        </div>
+                                        <div class="col-sm-1">
+                                        <button onclick="sendResponse()" id="sendResponse" class="btn btn-primary">Send</button>
+                                        </div>
+                                        </div>
                                 </div>
                                 <div class="Journal">
                                     <div class="form-group">
