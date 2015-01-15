@@ -106,7 +106,7 @@
 
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#journal" data-toggle="tab" aria-expanded="true">Journal</a></li>
-                            <li class=""><a onclick="getQuestion()" href="#talk" data-toggle="tab" aria-expanded="false">Talk</a></li>
+                            <li class=""><a href="#talk" data-toggle="tab" aria-expanded="false">Talk</a></li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                                     Dropdown <span class="caret"></span>

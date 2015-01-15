@@ -25,7 +25,7 @@ function getJournal(){
     xmlhttp.send();
 }
 
-function getQuestion(){
+function getResponse(){
     
     alert('Ionica !'); 
     
@@ -49,7 +49,7 @@ function getQuestion(){
         }
     }
 
-    xmlhttp.open("GET","/myDiary-Web/api/qa/get-initial-question",true);
+    xmlhttp.open("POST","/myDiary-Web/api/qa/get-response",true);
     xmlhttp.send();
 }
 
