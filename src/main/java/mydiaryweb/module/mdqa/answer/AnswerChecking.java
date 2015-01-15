@@ -58,6 +58,10 @@ public class AnswerChecking {
 
                 ind[index1] = count;
             }
+            if (ind.length == 0)
+            {
+                return null;
+            }
 
             int max = ind[0];
             for (int i = 0; i < ind.length; i++) {
