@@ -17,7 +17,8 @@ function getJournal(){
             for(var i = 0; i < text["journal"].length; i++){
                 output += (text["journal"][i] + "<br />");
             }
-            document.getElementById("journal").innerHTML = "<p>" + output + "</p>";
+        
+            $("#journalContent").append(output);
         }
     }
 
@@ -26,8 +27,6 @@ function getJournal(){
 }
 
 function getResponse(){
-    
-    alert('Ionica !'); 
     
     var xmlhttp;
 
@@ -80,3 +79,4 @@ function sendResponse(){
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(parameters));
 	}
+        
