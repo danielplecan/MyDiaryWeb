@@ -1,7 +1,4 @@
-package Init;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package mydiaryweb.module.inferences;
 
 
 public class DefaultAction {
