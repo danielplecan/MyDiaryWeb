@@ -20,6 +20,8 @@ import simplenlg.realiser.english.Realiser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import mydiaryweb.service.InferenceService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author dplecan
@@ -27,6 +29,8 @@ import java.util.*;
 
 @Controller
 public class TextGenerationController {
+    @Autowired
+    private InferenceService inferenceService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/text-generation/get-journal")
     @ResponseBody
@@ -34,19 +38,17 @@ public class TextGenerationController {
         Map<String, Object> responseMap = new HashMap<>();
 
 
-        responseMap.put("journal", generateText());
+        responseMap.put("journal", generateText(inferenceService.getCurrentDayActivities()));
 
         return responseMap;
     }
 
-    public ArrayList<String> generateText() {
+    public ArrayList<String> generateText(List<Main> mainTable) {
         ArrayList<String> finalText = new ArrayList<>();
         String rooms = "Kitchen,Bedroom,Bathroom,Garage,Hall";
         String prepositions = "After that,After <n>,<n> later";
         Random rand = new Random();
         String previousTime = null;
-
-        ArrayList<Main> mainTable = new ArrayList<>();
 
         for (Main main : mainTable) {
 

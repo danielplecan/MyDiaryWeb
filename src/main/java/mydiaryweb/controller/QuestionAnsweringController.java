@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import mydiaryweb.module.mdqa.Boostrap;
+import mydiaryweb.service.InferenceService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class QuestionAnsweringController {
+    @Autowired
+    private InferenceService inferenceService;
     
     @RequestMapping(method = RequestMethod.GET, value = "/api/qa/get-initial-question")
     @ResponseBody
@@ -32,7 +37,8 @@ public class QuestionAnsweringController {
     public Map<String, Object> getResponse(@RequestBody QuestionDTO questionDTO) {
         Map<String, Object> responseMap = new HashMap<>();
         
-        responseMap.put("response", questionDTO.getQuestion());
+        Boostrap.inst().setData(inferenceService.getCurrentDayActivities());
+        responseMap.put("response", Boostrap.inst().processResponse(questionDTO.getQuestion()));
         
         return responseMap;
     }
