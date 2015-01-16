@@ -1,28 +1,21 @@
 package mydiaryweb.controller;
 
-import java.io.File;
-import mydiaryweb.service.BehaviourService;
-import mydiaryweb.service.InferenceService;
-import mydiaryweb.service.MovementService;
-import mydiaryweb.service.OutdoorLocalizationService;
+import mydiaryweb.entity.localization.output.Location;
+import mydiaryweb.module.behaviour.logic.BehaviourUtils;
+import mydiaryweb.module.inferences.InferencesHandler;
+import mydiaryweb.module.localization.indoor.IndoorLocalization;
+import mydiaryweb.module.soundvoice.VoiceRecognition;
+import mydiaryweb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import mydiaryweb.entity.localization.output.Location;
-import mydiaryweb.module.behaviour.logic.BehaviourUtils;
-import mydiaryweb.module.inferences.InferencesHandler;
-import mydiaryweb.module.localization.indoor.IndoorLocalization;
-import mydiaryweb.module.soundvoice.VoiceRecognition;
-import mydiaryweb.service.FaceService;
-import mydiaryweb.service.IndoorLocalizationService;
-import mydiaryweb.service.LocalizationService;
-import mydiaryweb.service.SoundService;
 
 /**
  *
@@ -63,10 +56,9 @@ public class ProcessingController {
         List<Location> indoorLocations = indoorLocalizationService.launchProcessing();
         List<Location> locations = IndoorLocalization.mergeIndoorWithOudoor(indoorLocations, outdoorLocations);
         localizationService.addLocations(locations);
-        
-        
-        String soundName = VoiceRecognition.recognizeVoice(System.getProperty("catalina.home") 
-                + File.separator + "files" + File.separator + "voices" + 
+
+        String soundName = VoiceRecognition.recognizeVoice(System.getProperty("catalina.home")
+                + File.separator + "files" + File.separator + "voices" +
                 File.separator + "s6.wav");
         
         soundService.addSound(soundName);

@@ -1,20 +1,21 @@
 package mydiaryweb.service;
 
-import java.util.Date;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import mydiaryweb.entity.localization.input.outdoor.Device;
 import mydiaryweb.entity.localization.input.outdoor.RegisteredOutdoorLocation;
 import mydiaryweb.entity.localization.input.outdoor.ScannedDevice;
 import mydiaryweb.entity.localization.input.outdoor.VisitedOutdoorLocation;
 import mydiaryweb.entity.localization.output.Location;
 import mydiaryweb.module.localization.outdoor.OutdoorLocalization;
-import org.springframework.stereotype.Service;
 import mydiaryweb.util.DateUtility;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -79,7 +80,7 @@ public class OutdoorLocalizationService {
     @Transactional
     public List<Location> launchProcessing() {
         List<Location> locations = OutdoorLocalization.locate(getAllRegisteredLocations(), getAllVisitedLocations());
-        deleteAllVisitedLocations();
+        //deleteAllVisitedLocations();
         
         return locations;
     }

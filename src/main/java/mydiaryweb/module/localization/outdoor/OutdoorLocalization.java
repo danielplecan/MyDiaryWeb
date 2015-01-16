@@ -1,28 +1,5 @@
 package mydiaryweb.module.localization.outdoor;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.ws.ProtocolException;
 import mydiaryweb.entity.localization.input.outdoor.Device;
 import mydiaryweb.entity.localization.input.outdoor.RegisteredOutdoorLocation;
 import mydiaryweb.entity.localization.input.outdoor.ScannedDevice;
@@ -31,6 +8,19 @@ import mydiaryweb.entity.localization.output.Location;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import javax.xml.ws.ProtocolException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -92,7 +82,8 @@ public class OutdoorLocalization {
         try {
             StringBuilder stringBuilder = new StringBuilder();
             String line;
-            bufferedReader = new BufferedReader(new FileReader("PlacesTypes.txt"));
+            bufferedReader = new BufferedReader(new FileReader(System.getProperty("catalina.home")
+                     + File.separator + "files" + File.separator +"PlacesTypes.txt"));
 
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line).append("|");

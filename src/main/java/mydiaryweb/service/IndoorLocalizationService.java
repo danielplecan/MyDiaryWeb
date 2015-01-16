@@ -2,16 +2,16 @@ package mydiaryweb.service;
 
 import mydiaryweb.dto.localization.IndoorLocationDTO;
 import mydiaryweb.entity.localization.input.indoor.*;
+import mydiaryweb.entity.localization.output.Location;
+import mydiaryweb.module.localization.indoor.kNN.IndoorWorker;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import mydiaryweb.entity.localization.output.Location;
-import mydiaryweb.module.localization.indoor.kNN.IndoorWorker;
+import java.util.List;
 
 /**
  *
@@ -77,7 +77,7 @@ public class IndoorLocalizationService {
     @Transactional
     public List<Location> launchProcessing() {
         List<Location> locations = IndoorWorker.processIndoorData(getAllIndoorLocations(), getAllMeasures());
-        deleteAllMeasures();
+        //deleteAllMeasures();
         
         return locations;
     }
