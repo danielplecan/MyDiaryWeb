@@ -36,6 +36,16 @@
             <version>4.4.2</version>
         </dependency>
         <dependency>
+            <groupId>jmi</groupId>
+            <artifactId>jmi</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>matlabcontrol</groupId>
+            <artifactId>matlabcontrol</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.0</version>
