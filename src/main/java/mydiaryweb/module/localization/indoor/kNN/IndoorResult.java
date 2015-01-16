@@ -1,4 +1,4 @@
-package mydiaryweb.dto.localization.kNN;
+package mydiaryweb.module.localization.indoor.kNN;
 
 
 import mydiaryweb.entity.localization.input.indoor.Measure;

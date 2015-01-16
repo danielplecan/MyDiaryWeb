@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -16,10 +18,13 @@ import javax.persistence.Table;
  *
  * @author dplecan
  */
+@NamedQueries({
+    @NamedQuery(name = IndoorLocation.FIND_ALL, query = "SELECT il FROM IndoorLocation il"),
+})
 @Entity
 @Table(name = "indoor_locations")
 public class IndoorLocation implements Serializable {
-
+    public static final String FIND_ALL = "IndoorLocation.findAll";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "en_indoor_locations_id_seq", sequenceName = "en_indoor_locations_id_seq", allocationSize = 1)

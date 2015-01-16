@@ -1,5 +1,6 @@
 package mydiaryweb.controller;
 
+import java.io.File;
 import mydiaryweb.service.BehaviourService;
 import mydiaryweb.service.InferenceService;
 import mydiaryweb.service.MovementService;
@@ -11,10 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import mydiaryweb.entity.localization.output.Location;
 import mydiaryweb.module.behaviour.logic.BehaviourUtils;
 import mydiaryweb.module.inferences.InferencesHandler;
+import mydiaryweb.module.localization.indoor.IndoorLocalization;
+import mydiaryweb.module.soundvoice.VoiceRecognition;
 import mydiaryweb.service.FaceService;
+import mydiaryweb.service.IndoorLocalizationService;
+import mydiaryweb.service.LocalizationService;
 import mydiaryweb.service.SoundService;
 
 /**
@@ -25,6 +32,12 @@ import mydiaryweb.service.SoundService;
 public class ProcessingController {
     @Autowired
     private OutdoorLocalizationService outdoorLocalizationService;
+    
+    @Autowired
+    private IndoorLocalizationService indoorLocalizationService;
+    
+    @Autowired
+    private LocalizationService localizationService;
     
     @Autowired
     private InferenceService inferenceService;
@@ -46,7 +59,17 @@ public class ProcessingController {
     public Map<String, Object> startProcessing() {
         Map<String, Object> responseMap = new HashMap<>();
         
-        outdoorLocalizationService.launchProcessing();
+        List<Location> outdoorLocations = outdoorLocalizationService.launchProcessing();
+        List<Location> indoorLocations = indoorLocalizationService.launchProcessing();
+        List<Location> locations = IndoorLocalization.mergeIndoorWithOudoor(indoorLocations, outdoorLocations);
+        localizationService.addLocations(locations);
+        
+        
+        String soundName = VoiceRecognition.recognizeVoice(System.getProperty("catalina.home") 
+                + File.separator + "files" + File.separator + "voices" + 
+                File.separator + "s6.wav");
+        
+        soundService.addSound(soundName);
         
         InferencesHandler.setService(inferenceService);
         InferencesHandler.StartInferencing(outdoorLocalizationService.getCurrentDayLocations(), 

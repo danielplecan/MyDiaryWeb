@@ -77,12 +77,11 @@ public class OutdoorLocalizationService {
     }
     
     @Transactional
-    public void launchProcessing() {
+    public List<Location> launchProcessing() {
         List<Location> locations = OutdoorLocalization.locate(getAllRegisteredLocations(), getAllVisitedLocations());
-        for(Location location : locations) {
-            entityManager.persist(location);
-        }
         deleteAllVisitedLocations();
+        
+        return locations;
     }
     
     public void launchDeviceVerification(Date timeStamp){

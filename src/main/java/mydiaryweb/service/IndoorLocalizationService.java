@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import mydiaryweb.entity.localization.output.Location;
+import mydiaryweb.module.localization.indoor.kNN.IndoorWorker;
 
 /**
  *
@@ -46,5 +50,35 @@ public class IndoorLocalizationService {
         }
         
         entityManager.persist(measure);
+    }
+    
+    @Transactional
+    public List<IndoorLocation> getAllIndoorLocations() {
+        TypedQuery<IndoorLocation> indoorLocationsQuery = entityManager.createNamedQuery(IndoorLocation.FIND_ALL, 
+                IndoorLocation.class);
+        
+        return indoorLocationsQuery.getResultList();
+    }
+    
+    @Transactional
+    public List<Measure> getAllMeasures() {
+        TypedQuery<Measure> measuresQuery = entityManager.createNamedQuery(Measure.FIND_ALL, 
+                Measure.class);
+        
+        return measuresQuery.getResultList();
+    }
+    
+    @Transactional
+    public void deleteAllMeasures() {
+        Query measuresLocations = entityManager.createNamedQuery(Measure.DELETE_ALL);
+        measuresLocations.executeUpdate();
+    }
+    
+    @Transactional
+    public List<Location> launchProcessing() {
+        List<Location> locations = IndoorWorker.processIndoorData(getAllIndoorLocations(), getAllMeasures());
+        deleteAllMeasures();
+        
+        return locations;
     }
 }

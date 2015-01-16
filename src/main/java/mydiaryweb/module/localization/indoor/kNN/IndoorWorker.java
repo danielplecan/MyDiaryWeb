@@ -1,4 +1,4 @@
-package mydiaryweb.dto.localization.kNN;
+package mydiaryweb.module.localization.indoor.kNN;
 
 
 import mydiaryweb.entity.localization.input.indoor.IndoorLocation;
@@ -14,7 +14,7 @@ import java.util.List;
 public class IndoorWorker {
     public static int K = 3;
 
-    public List<Location> processIndoorData(List<IndoorLocation> indoorLocationsList, List<Measure> measureList) {
+    public static List<Location> processIndoorData(List<IndoorLocation> indoorLocationsList, List<Measure> measureList) {
         kNN knn = new kNN(indoorLocationsList, K);
         IndoorResultFilter indoorResultFilter = new IndoorResultFilter(knn);
         for (Measure measure : measureList) {

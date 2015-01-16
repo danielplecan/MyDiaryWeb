@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import mydiaryweb.entity.sound.output.Sound;
 import org.springframework.stereotype.Service;
 import mydiaryweb.util.DateUtility;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -30,5 +31,14 @@ public class SoundService {
         soundsByDate.setParameter("end", end);
         
         return soundsByDate.getResultList();
+    }
+
+    @Transactional
+    public void addSound(String soundName) {
+        Sound sound = new Sound();
+        sound.setSoundName(soundName);
+        sound.setTimestamp(new Date());
+        
+        entityManager.persist(sound);
     }
 }

@@ -1,4 +1,4 @@
-package mydiaryweb.dto.localization.kNN;
+package mydiaryweb.module.localization.indoor.kNN;
 
 public class Vote implements Comparable<Vote>{
 	Voter voter;

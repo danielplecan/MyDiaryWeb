@@ -32,4 +32,12 @@ public class FaceService {
         
         return facesByDate.getResultList();
     }
+    
+    public void addFace(String faceName) {
+        Face face = new Face();
+        face.setFaceName(faceName);
+        face.setTimestamp(new Date());
+        
+        entityManager.persist(face);
+    }
 }
